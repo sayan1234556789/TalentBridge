@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import crypto from "crypto"
+import sendEmail from "../utils/sendEmail.js";
 
 export const registerUser = async (req, res) => {
     try {
@@ -15,15 +17,25 @@ export const registerUser = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10)
 
+        const token = crypto.randomBytes(32).toString("hex")
         const user = await User.create({
             name,
             email,
             password: hashedPassword,
-            role
+            role,
+            verificationToken: token
         })
 
+        const verificationUrl = `${process.env.CLIENT_URL}/verify/${token}`
+
+        await sendEmail(
+            email,
+            "Verify your Email",
+            `<h2>Click to verify</h2><a href="${verificationUrl}">${verificationUrl}</a>`
+        )
+
         res.status(201).json({
-            message: "User registered successfully",
+            message: "User registered successfully, please verify your email",
             user
         })
     } catch (error) {
@@ -44,7 +56,11 @@ export const loginUser = async (req, res) => {
                 message: "user not found"
             })
         }
-
+        if(!user.isVerified){
+            return res.status(400).json({
+                message: "please verify your email"
+            })
+        }
         const isMatch = await bcrypt.compare(password, user.password)
 
         if(!isMatch){
@@ -63,6 +79,33 @@ export const loginUser = async (req, res) => {
             message: "Login Successful",
             token,
             user
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+export const verifyEmail = async(req, res) => {
+    try {
+        const user = await User.findOne({
+            verificationToken: req.params.token
+        })
+
+        if(!user){
+            return res.status(400).json({
+                message: "invalid token"
+            })
+        }
+
+        user.isVerified = true;
+        user.verificationToken = undefined
+
+        await user.save()
+
+        res.status(200).json({
+            message: "email verified successfully"
         })
     } catch (error) {
         res.status(500).json({

@@ -25,6 +25,13 @@ const userSchema = new mongoose.Schema({
     skills: {
         type: [String],
         default: []
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    verificationToken: {
+        type: String
     }
 }, {timeStamps : true})
 
