@@ -1,5 +1,4 @@
-import dotenv from 'dotenv'
-dotenv.config()
+import "./config/env.js"
 
 import express from 'express'
 import connectDb from './config/db.js'
@@ -8,6 +7,7 @@ import userRoutes from './routes/userRoutes.js'
 import projectRoutes from './routes/projectRoutes.js'
 import applicationRoutes from './routes/applicationRoutes.js'
 import taskRoutes from './routes/taskRoutes.js'
+import passport from './config/passport.js'
 
 
 const app = express()
@@ -16,6 +16,7 @@ connectDb()
 
 app.use(express.json())
 
+app.use(passport.initialize())
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/projects", projectRoutes)
