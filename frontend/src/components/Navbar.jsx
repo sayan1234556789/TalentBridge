@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
+import { Link, useNavigate } from "react-router-dom"
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
@@ -16,7 +17,12 @@ const Navbar = () => {
     return () => { document.body.style.overflow = "" }
   }, [open])
 
-  const navLinks = ["Home", "Explore", "Login"]
+  const navLinks = [
+    {name : "Home", path: "/"},
+    {name : "Explore", path: "/explore"},
+    {name : "Login", path: "/login"}
+  ]
+  const navigate = useNavigate();
 
   return (
     <nav
@@ -31,15 +37,14 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-6 py-0">
         <div className="flex items-center justify-between h-16">
 
-          {/* LOGO */}
           <h1 className="text-2xl font-bold tracking-tight text-[#112D4E] select-none">
             <span className="text-[#3F72AF]">Freelance</span>.io
           </h1>
 
           <div className="hidden md:flex items-center gap-1 font-medium">
             {navLinks.map((link) => (
-              <p
-                key={link}
+              <Link to = {link.path}
+                key={link.name}
                 className="relative cursor-pointer text-[#112D4E] text-md px-4 py-2 rounded-md
                   hover:text-[#3F72AF] hover:bg-[#DBE2EF]/50
                   transition-all duration-200 ease-in-out
@@ -48,8 +53,8 @@ const Navbar = () => {
                   after:transition-transform after:duration-200
                   hover:after:scale-x-100"
               >
-                {link}
-              </p>
+                {link.name}
+              </Link>
             ))}
 
             <div className="w-px h-6 bg-[#DBE2EF] mx-2" aria-hidden="true" />
@@ -63,6 +68,7 @@ const Navbar = () => {
                 shadow-[0_1px_8px_rgba(63,114,175,0.35)]
                 hover:shadow-[0_2px_12px_rgba(17,45,78,0.3)]
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3F72AF] focus-visible:ring-offset-2"
+                onClick={() => navigate("/register")}
             >
               Register
             </button>
@@ -101,16 +107,17 @@ const Navbar = () => {
         <div className="border-t border-[#DBE2EF] bg-[#F9F7F7]">
           <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
             {navLinks.map((link) => (
-              <p
-                key={link}
+              <Link
+                key={link.name}
+                to={link.path}
                 onClick={() => setOpen(false)}
                 className="cursor-pointer text-[#112D4E] font-medium text-sm
                   px-4 py-3 rounded-lg
                   hover:text-[#3F72AF] hover:bg-[#DBE2EF]/50
                   transition-all duration-150"
               >
-                {link}
-              </p>
+                {link.name}
+              </Link>
             ))}
 
             <div className="h-px bg-[#DBE2EF] my-2" aria-hidden="true" />
