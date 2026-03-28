@@ -1,4 +1,5 @@
 import "./config/env.js"
+import cors from "cors"
 
 import express from 'express'
 import connectDb from './config/db.js'
@@ -15,6 +16,11 @@ const app = express()
 
 connectDb()
 
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}))
+
 app.use(express.json())
 
 app.use(passport.initialize())
@@ -29,7 +35,7 @@ app.get("/" , (req, res) => {
     res.send("Api is running")
 })
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 app.listen(port, () => {
     console.log(`server started on port: ${port}`)
 })

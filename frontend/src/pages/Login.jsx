@@ -1,9 +1,53 @@
+import { useState } from "react"
 import Navbar from "../components/Navbar"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "../context/useAuthContext"
+import api from "../api/axios"
 
 const Login = () => {
+
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
+
+  const [form, setForm] = useState({
+    email: "",
+    password: ""
+  })
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const {email, password} = form
+
+    if(!email || !password){
+      alert("All fields are required")
+      return;
+    }
+    try {
+      const response = await api.post("/auth/login",form)
+
+      if(response?.data){
+        login(response.data)
+      }
+
+      alert("login successfull")
+
+      navigate("/dashboard")
+    } catch (error) {
+      console.log(error.response?.data || error)
+      alert("login not successful!")
+    }
+  }
   return (
-    <div className="bg-[#F9F7F7] min-h-screen text-[#112D4E]">
+    <div className="bg-white/10 min-h-screen text-[#112D4E]">
 
       <Navbar />
 
@@ -15,21 +59,30 @@ const Login = () => {
             Login to your account
           </h2>
 
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
 
             <input
               type="email"
               placeholder="Email"
               className="px-4 py-3 rounded-lg border border-[#DBE2EF] outline-none focus:border-[#3F72AF]"
+              name = "email"
+              value = {form.email}
+              onChange={handleChange}
             />
 
             <input
               type="password"
               placeholder="Password"
               className="px-4 py-3 rounded-lg border border-[#DBE2EF] outline-none focus:border-[#3F72AF]"
+              name = "password"
+              value={form.password}
+              onChange={handleChange}
             />
 
-            <button className="bg-[#112D4E] text-white py-3 rounded-lg font-semibold hover:bg-[#3F72AF] transition">
+            <button
+            className="bg-[#112D4E] text-white py-3 rounded-lg font-semibold hover:bg-[#3F72AF] transition"
+            type="submit"
+            >
               Login
             </button>
 

@@ -5,7 +5,7 @@ const Home = () => {
     <div className="bg-[#F9F7F7] min-h-screen text-[#112D4E] antialiased">
       <Navbar />
 
-      <section className="relative overflow-hidden bg-[#F9F7F7]">
+      <section className="relative overflow-hidden bg-white/10">
         <div
           className="absolute inset-0 pointer-events-none opacity-[0.3]"
           style={{
@@ -75,7 +75,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="bg-white border-y border-[#DBE2EF]">
+      <section className="bg-white/10 border-y border-[#DBE2EF]">
         <div className="max-w-6xl mx-auto px-6 sm:px-10 grid grid-cols-2 md:grid-cols-4 text-center">
           {[
             { value: "10K+", label: "Freelancers" },
@@ -96,7 +96,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-[#F9F7F7]">
+      <section className="py-24 bg-white/10">
         <div className="max-w-6xl mx-auto px-6 sm:px-10">
           <h2 className="text-2xl font-bold text-center mb-12">
             Platform Features

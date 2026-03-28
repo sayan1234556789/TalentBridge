@@ -35,11 +35,14 @@ export const registerUser = async (req, res) => {
         )
 
         res.status(201).json({
+            success: true,
             message: "User registered successfully, please verify your email",
+            token,
             user
         })
     } catch (error) {
         res.status(500).json({
+            success: false,
             message: error.message
         })
     }
@@ -76,12 +79,14 @@ export const loginUser = async (req, res) => {
         );
 
         res.json({
+            success: true,
             message: "Login Successful",
             token,
             user
         })
     } catch (error) {
         res.status(500).json({
+            success: false,
             message: error.message
         })
     }
