@@ -36,13 +36,20 @@ export const getprojects = async (req, res) => {
         }
 
         if(skills){
-            query.skillsRequired = { $in: [skills] }
+            const skillsArray = skills
+                .split(",")
+                .map((e) => e.trim())
+                .filter(e => e.length > 0)
+
+            query.skillsRequired = { $in: skillsArray }
         }
 
         if(minBudget || maxBudget){
             query.budget = {}
             if(minBudget){
                 query.budget.$gte = Number(minBudget);
+            }
+            if(maxBudget){
                 query.budget.$lte = Number(maxBudget);
             }
         }

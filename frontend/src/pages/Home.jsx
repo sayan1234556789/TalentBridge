@@ -98,30 +98,90 @@ const Home = () => {
 
       <section className="py-24 bg-white/10">
         <div className="max-w-6xl mx-auto px-6 sm:px-10">
-          <h2 className="text-2xl font-bold text-center mb-12">
-            Platform Features
-          </h2>
+          <div className="text-center mb-14">
+            <h2 className="text-3xl font-bold tracking-tight mb-2">
+              Platform Features
+            </h2>
+            <p className="text-[#112D4E]/60 text-sm max-w-md mx-auto">
+              Everything you need to manage freelance projects efficiently
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-xl border border-[#DBE2EF] hover:shadow-md transition">
-              <h3 className="font-semibold mb-2">Post Projects</h3>
-              <p className="text-[#112D4E]/60 text-sm">
-                Clients can post projects and hire freelancers easily.
-              </p>
+            <div
+              className="group bg-white p-7 rounded-2xl border border-[#DBE2EF]
+              transition-all duration-300 ease-out
+              hover:shadow-xl hover:-translate-y-1
+              relative overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100
+                transition duration-300
+                bg-gradient-to-br from-[#3F72AF]/10 to-transparent"
+              />
+
+              <div className="relative z-10">
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#DBE2EF] mb-4">
+                  📌
+                </div>
+
+                <h3 className="font-semibold text-lg mb-2">Post Projects</h3>
+
+                <p className="text-[#112D4E]/60 text-sm leading-relaxed">
+                  Clients can post projects and hire freelancers easily with a
+                  smooth workflow.
+                </p>
+              </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-[#DBE2EF] hover:shadow-md transition">
-              <h3 className="font-semibold mb-2">Apply & Work</h3>
-              <p className="text-[#112D4E]/60 text-sm">
-                Freelancers can apply and start working instantly.
-              </p>
+            <div
+              className="group bg-white p-7 rounded-2xl border border-[#DBE2EF]
+              transition-all duration-300 ease-out
+              hover:shadow-xl hover:-translate-y-1
+              relative overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100
+                transition duration-300
+                bg-gradient-to-br from-[#3F72AF]/10 to-transparent"
+              />
+
+              <div className="relative z-10">
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#DBE2EF] mb-4">
+                  🚀
+                </div>
+
+                <h3 className="font-semibold text-lg mb-2">Apply & Work</h3>
+
+                <p className="text-[#112D4E]/60 text-sm leading-relaxed">
+                  Freelancers can apply, get hired, and start working instantly.
+                </p>
+              </div>
             </div>
 
-            <div className="bg-white p-6 rounded-xl border border-[#DBE2EF] hover:shadow-md transition">
-              <h3 className="font-semibold mb-2">Manage Tasks</h3>
-              <p className="text-[#112D4E]/60 text-sm">
-                Track progress with built-in task management.
-              </p>
+            <div
+              className="group bg-white p-7 rounded-2xl border border-[#DBE2EF]
+              transition-all duration-300 ease-out
+              hover:shadow-xl hover:-translate-y-1
+              relative overflow-hidden"
+            >
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100
+                transition duration-300
+                bg-gradient-to-br from-[#3F72AF]/10 to-transparent"
+              />
+
+              <div className="relative z-10">
+                <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#DBE2EF] mb-4">
+                  📊
+                </div>
+
+                <h3 className="font-semibold text-lg mb-2">Manage Tasks</h3>
+
+                <p className="text-[#112D4E]/60 text-sm leading-relaxed">
+                  Track progress, manage tasks, and collaborate efficiently.
+                </p>
+              </div>
             </div>
           </div>
         </div>
