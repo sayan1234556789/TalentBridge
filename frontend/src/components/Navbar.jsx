@@ -64,7 +64,9 @@ const Navbar = () => {
             {user ? (
               <>
                 <p
-                  onClick={() => navigate("/dashboard")}
+                  onClick={() => {
+                    {user.role === "client"? navigate("/clientdashboard"): navigate("/dashboard")}
+                  }}
                   className="relative cursor-pointer text-[#112D4E] text-[15px] px-5 py-2.5 rounded-lg
                     hover:text-[#3F72AF] hover:bg-[#DBE2EF]/40
                     transition-all duration-200

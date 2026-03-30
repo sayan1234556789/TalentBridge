@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import api from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const CreateProject = () => {
     const [form, setForm] = useState({
@@ -9,6 +10,7 @@ const CreateProject = () => {
         budget: "",
         skills: ""
     })
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setForm({
@@ -35,6 +37,7 @@ const CreateProject = () => {
 
             alert("Project Created!")
             console.log(res.data)
+            navigate("/clientdashboard")
         }
         catch(error){
             console.log(error.response?.data || error)

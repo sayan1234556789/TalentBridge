@@ -9,6 +9,7 @@ import DashBoard from './pages/DashBoard'
 import CreateProject from './pages/CreateProject'
 import Projects from './pages/Projects'
 import AuthRedirect from './routes/AuthRedirect'
+import ClientDashboard from './pages/ClientDashboard'
 
 const App = () => {
   return (
@@ -28,7 +29,7 @@ const App = () => {
       <Route 
         path='/dashboard'
         element = {
-          <ProtectedRoute>
+          <ProtectedRoute role="freelancer">
             <DashBoard />
           </ProtectedRoute>
         }
@@ -36,6 +37,11 @@ const App = () => {
 
       <Route path='/projects' element = {<CreateProject />} />
       <Route path='/getallprojects' element = {<Projects />} />
+      <Route path='/clientdashboard' element={
+        <ProtectedRoute role="client">
+          <ClientDashboard />
+        </ProtectedRoute>
+      } />
     </Routes>
   )
 }

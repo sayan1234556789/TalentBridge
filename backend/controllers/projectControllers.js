@@ -1,3 +1,4 @@
+import Application from "../models/Application.js";
 import Project from "../models/Project.js";
 
 export const createProject = async (req, res) => {
@@ -145,5 +146,42 @@ export const deleteProject = async (req, res) => {
 
     } catch (error) {
         
+    }
+}
+
+export const getMyProjects = async ( req, res ) => {
+    try {
+        const userId = req.user
+
+        const projects = await Project.find({clientId: userId})
+            .sort({ createdAt: -1 })
+
+        const projectIds = projects.map((e) => e._id)
+
+        const applications = await Application.find({
+            projectId: {$in: projectIds}
+        }).populate("freelancerId", "name email")
+
+        const projectsWithApplications = projects.map((project) => {
+            const projectApplications = applications.filter((app) => (
+                app.projectId.toString() === project._id.toString()
+            ))
+
+            return {
+                ...project.toObject(),
+                applications: projectApplications
+            }
+        })
+        
+        res.status(200).json({
+            success: true,
+            count: projectsWithApplications.length,
+            projects: projectsWithApplications
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
     }
 }
