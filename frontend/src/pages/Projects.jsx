@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
     search: "",
     skills: "",
@@ -25,6 +27,8 @@ const Projects = () => {
           params: filters,
         });
         setProjects(res.data.projects);
+        setTotalPages(res.data.totalPages);
+        setCurrentPage(res.data.page);
       } catch (error) {
         console.log(error.response?.data || error);
       }
@@ -38,7 +42,6 @@ const Projects = () => {
       <Navbar />
 
       <div className="max-w-6xl mx-auto px-6 py-10">
-
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">
@@ -68,7 +71,6 @@ const Projects = () => {
         </div>
 
         <div className="bg-white p-4 rounded-xl border border-[#DBE2EF] grid md:grid-cols-4 gap-3 shadow-sm mb-8">
-
           {["search", "skills", "minBudget", "maxBudget"].map((key) => (
             <input
               key={key}
@@ -76,14 +78,14 @@ const Projects = () => {
                 key === "search"
                   ? "Search..."
                   : key === "skills"
-                  ? "Skills"
-                  : key === "minBudget"
-                  ? "Min Budget"
-                  : "Max Budget"
+                    ? "Skills"
+                    : key === "minBudget"
+                      ? "Min Budget"
+                      : "Max Budget"
               }
               value={filters[key]}
               onChange={(e) =>
-                setFilters({ ...filters, [key]: e.target.value })
+                setFilters({ ...filters, [key]: e.target.value, page: 1 })
               }
               className="px-4 py-2.5 rounded-lg border border-[#DBE2EF] bg-[#F9F7F7]
               text-sm placeholder:text-[#112D4E]/30
@@ -92,11 +94,9 @@ const Projects = () => {
               transition-all duration-200"
             />
           ))}
-
         </div>
 
         <div className="grid md:grid-cols-2 gap-5">
-
           {projects.length === 0 ? (
             <p className="col-span-full text-center text-[#112D4E]/60">
               No projects found
@@ -109,10 +109,7 @@ const Projects = () => {
                 transition-all duration-300 ease-out
                 hover:shadow-xl hover:-translate-y-1"
               >
-
-                <h2 className="font-semibold text-lg mb-2">
-                  {p.title}
-                </h2>
+                <h2 className="font-semibold text-lg mb-2">{p.title}</h2>
 
                 <p className="text-sm text-[#112D4E]/60 mb-4 line-clamp-3">
                   {p.description}
@@ -131,14 +128,11 @@ const Projects = () => {
                 </div>
 
                 <div className="flex items-center justify-between pt-4 border-t border-[#DBE2EF]">
-
                   <div>
                     <p className="text-[10px] uppercase text-[#112D4E]/40">
                       Budget
                     </p>
-                    <p className="font-semibold text-[#3F72AF]">
-                      ₹ {p.budget}
-                    </p>
+                    <p className="font-semibold text-[#3F72AF]">₹ {p.budget}</p>
                   </div>
 
                   <button
@@ -151,15 +145,68 @@ const Projects = () => {
                   >
                     View Details
                   </button>
-
                 </div>
-
               </div>
             ))
           )}
-
         </div>
 
+        <div className="flex items-center justify-center gap-2 mt-10 flex-wrap">
+          <button
+            disabled={currentPage === 1}
+            onClick={() =>
+              setFilters((prev) => ({
+                ...prev,
+                page: prev.page - 1,
+              }))
+            }
+            className="px-4 py-2 rounded-lg border text-sm
+            hover:bg-[#3F72AF] hover:text-white
+            disabled:opacity-40 disabled:cursor-not-allowed transition"
+          >
+            ← Prev
+          </button>
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1)
+            .slice(
+              Math.max(0, currentPage - 3),
+              Math.min(totalPages, currentPage + 2),
+            )
+            .map((num) => (
+              <button
+                key={num}
+                onClick={() =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    page: num,
+                  }))
+                }
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition
+                ${
+                  currentPage === num
+                    ? "bg-[#112D4E] text-white shadow"
+                    : "border hover:bg-[#3F72AF] hover:text-white"
+                }`}
+              >
+                {num}
+              </button>
+            ))}
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() =>
+              setFilters((prev) => ({
+                ...prev,
+                page: prev.page + 1,
+              }))
+            }
+            className="px-4 py-2 rounded-lg border text-sm
+            hover:bg-[#3F72AF] hover:text-white
+            disabled:opacity-40 disabled:cursor-not-allowed transition"
+          >
+            Next →
+          </button>
+        </div>
       </div>
     </div>
   );

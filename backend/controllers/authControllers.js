@@ -78,7 +78,7 @@ export const loginUser = async (req, res) => {
             {expiresIn: "7d"}
         );
 
-        res.json({
+        res.status(200).json({
             success: true,
             message: "Login Successful",
             token,
