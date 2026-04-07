@@ -25,6 +25,12 @@ export const updateProfile = async (req, res) => {
         user.bio = req.body.bio || user.bio
         user.skills = req.body.skills || user.skills
         user.avatar = req.body.avatar || user.avatar
+
+        await user.save()
+        res.status(200).json({
+            success: true,
+            user
+        })
     } catch (error) {
         res.status(401).json({
             message: error.message

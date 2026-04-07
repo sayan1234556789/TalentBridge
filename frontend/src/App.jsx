@@ -13,6 +13,7 @@ import ClientDashboard from './pages/ClientDashboard'
 import ProjectDetails from './pages/ProjectDetails'
 import ProjectApplications from './pages/ProjectApplications'
 import EditProject from './pages/EditProject'
+import Profile from './pages/Profile'
 
 const App = () => {
   return (
@@ -56,7 +57,9 @@ const App = () => {
         </ProtectedRoute>
         } />
 
-
+        <Route path='/profile' element={
+            <Profile />
+        } />
     </Routes>
   )
 }

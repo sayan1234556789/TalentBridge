@@ -32,74 +32,63 @@ const Navbar = () => {
     <nav
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#F9F7F7]/95 backdrop-blur-md shadow-[0_4px_20px_rgba(17,45,78,0.08)]"
+          ? "bg-white/80 backdrop-blur-xl  shadow-[0_6px_30px_rgba(15,23,42,0.08)]"
           : "bg-[#F9F7F7]"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          <h1 className="text-[1.3rem] font-bold tracking-tight text-[#112D4E]">
+
+          <h1 className="text-[1.4rem] font-bold tracking-tight text-[#0f172a]">
             <span className="text-[#3F72AF]">Freelance</span>.io
           </h1>
 
-          <div className="hidden md:flex items-center gap-4 font-medium">
+          <div className="hidden md:flex items-center gap-3 font-medium">
+
             {navLinks.map((link) => (
               <Link
                 to={link.path}
                 key={link.name}
-                className="relative text-[#112D4E] text-[15px] px-5 py-2.5 rounded-lg
-                  hover:text-[#3F72AF] hover:bg-[#DBE2EF]/40
-                  transition-all duration-200
-                  after:absolute after:bottom-1 after:left-5 after:right-5 after:h-[2px]
-                  after:bg-[#3F72AF] after:rounded-full after:scale-x-0
-                  after:transition-transform after:duration-300
-                  hover:after:scale-x-100"
+                className="relative text-[#334155] text-[15px] px-4 py-2 rounded-lg
+                hover:text-[#3F72AF] hover:bg-[#EFF6FF]
+                transition-all duration-200"
               >
                 {link.name}
               </Link>
             ))}
 
-            <div className="w-px h-6 bg-[#DBE2EF]" />
+            <div className="w-px h-6 bg-[#E2E8F0] mx-2" />
 
             {user ? (
               <>
                 <p
                   onClick={() => {
-                    {user.role === "client"? navigate("/clientdashboard"): navigate("/dashboard")}
+                    user.role === "client"
+                      ? navigate("/clientdashboard")
+                      : navigate("/dashboard");
                   }}
-                  className="relative cursor-pointer text-[#112D4E] text-[15px] px-5 py-2.5 rounded-lg
-                    hover:text-[#3F72AF] hover:bg-[#DBE2EF]/40
-                    transition-all duration-200
-                    after:absolute after:bottom-1 after:left-5 after:right-5 after:h-[2px]
-                    after:bg-[#3F72AF] after:rounded-full after:scale-x-0
-                    after:transition-transform after:duration-300
-                    hover:after:scale-x-100"
+                  className="cursor-pointer text-[#334155] text-[15px] px-4 py-2 rounded-lg
+                  hover:text-[#3F72AF] hover:bg-[#EFF6FF]
+                  transition-all duration-200"
                 >
                   Dashboard
                 </p>
 
+                <Link to="/profile">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#3F72AF] to-[#112D4E]
+                  flex items-center justify-center text-white font-semibold shadow-md
+                  hover:scale-105 transition cursor-pointer">
+                    {user.name?.charAt(0)}
+                  </div>
+                </Link>
+
                 <button
                   onClick={() => logout()}
-                  className="inline-flex items-center gap-2
-                    bg-[#DBE2EF]/60 text-[#112D4E] text-[14px] font-semibold
-                    px-5 py-2.5 rounded-lg
-                    hover:bg-[#112D4E] hover:text-white
-                    active:scale-[0.96]
-                    transition-all duration-200"
+                  className="ml-2 px-4 py-2 rounded-lg text-sm font-semibold
+                  bg-[#F1F5F9] text-[#334155]
+                  hover:bg-[#112D4E] hover:text-white
+                  transition-all duration-200"
                 >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    />
-                  </svg>
                   Logout
                 </button>
               </>
@@ -107,21 +96,16 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="text-[#112D4E] text-[15px] px-5 py-2.5 rounded-lg
-                    hover:text-[#3F72AF] hover:bg-[#DBE2EF]/40
-                    transition-all duration-200"
+                  className="text-[#334155] px-4 py-2 rounded-lg hover:bg-[#EFF6FF]"
                 >
                   Login
                 </Link>
 
                 <button
                   onClick={() => navigate("/register")}
-                  className="bg-[#3F72AF] text-white text-[14px] font-semibold
-                    px-6 py-2.5 rounded-lg
-                    hover:bg-[#112D4E]
-                    active:scale-[0.96]
-                    transition-all duration-200
-                    shadow-[0_2px_10px_rgba(63,114,175,0.25)]"
+                  className="bg-gradient-to-r from-[#3F72AF] to-[#112D4E]
+                  text-white px-5 py-2 rounded-lg text-sm font-semibold
+                  hover:opacity-90 transition shadow-md"
                 >
                   Register
                 </button>
@@ -131,7 +115,7 @@ const Navbar = () => {
 
           <button
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-lg
-              text-[#112D4E] hover:bg-[#DBE2EF]/60 transition"
+            text-[#0f172a] hover:bg-[#E2E8F0] transition"
             onClick={() => setOpen(!open)}
           >
             {open ? <X size={22} /> : <Menu size={22} />}
@@ -141,44 +125,67 @@ const Navbar = () => {
 
       <div
         className={`md:hidden transition-all duration-300 overflow-hidden ${
-          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          open ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="bg-[#F9F7F7] border-t border-[#DBE2EF] px-6 py-4 flex flex-col gap-2">
+        <div className="bg-white border-t border-[#E2E8F0] px-6 py-5 flex flex-col gap-3">
+
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.path}
               onClick={() => setOpen(false)}
-              className="text-[#112D4E] text-[15px] px-4 py-3 rounded-lg
-                hover:bg-[#DBE2EF]/50 transition"
+              className="text-[#334155] px-4 py-3 rounded-lg hover:bg-[#F1F5F9] transition"
             >
               {link.name}
             </Link>
           ))}
 
-          <div className="h-px bg-[#DBE2EF] my-2" />
+          <div className="h-px bg-[#E2E8F0] my-2" />
 
           {user ? (
             <>
-              <p
+              <Link
+                to="/profile"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#F1F5F9]"
+              >
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3F72AF] to-[#112D4E]
+                flex items-center justify-center text-white text-sm font-semibold">
+                  {user.name?.charAt(0)}
+                </div>
+                Profile
+              </Link>
+
+              {user.role === "freelancer" ? (
+                <p
                 onClick={() => {
                   navigate("/dashboard");
                   setOpen(false);
                 }}
-                className="text-[#112D4E] text-[15px] px-4 py-3 rounded-lg
-                  hover:bg-[#DBE2EF]/50 transition cursor-pointer"
+                className="px-4 py-3 rounded-lg hover:bg-[#F1F5F9] cursor-pointer"
               >
                 Dashboard
               </p>
-
+              ): (
+                <p
+                onClick={() => {
+                  navigate("/clientdashboard");
+                  setOpen(false);
+                }}
+                className="px-4 py-3 rounded-lg hover:bg-[#F1F5F9] cursor-pointer"
+              >
+                Dashboard
+              </p>
+              )}
+              
               <button
                 onClick={() => {
                   logout();
                   setOpen(false);
                 }}
-                className="bg-[#DBE2EF]/60 text-[#112D4E] px-4 py-3 rounded-lg
-                  hover:bg-[#112D4E] hover:text-white transition"
+                className="bg-[#F1F5F9] px-4 py-3 rounded-lg
+                hover:bg-[#112D4E] hover:text-white transition"
               >
                 Logout
               </button>
@@ -188,7 +195,7 @@ const Navbar = () => {
               <Link
                 to="/login"
                 onClick={() => setOpen(false)}
-                className="text-[#112D4E] px-4 py-3 rounded-lg hover:bg-[#DBE2EF]/50 transition"
+                className="px-4 py-3 rounded-lg hover:bg-[#F1F5F9]"
               >
                 Login
               </Link>
@@ -198,8 +205,8 @@ const Navbar = () => {
                   navigate("/register");
                   setOpen(false);
                 }}
-                className="bg-[#3F72AF] text-white px-4 py-3 rounded-lg
-                  hover:bg-[#112D4E] transition"
+                className="bg-gradient-to-r from-[#3F72AF] to-[#112D4E]
+                text-white px-4 py-3 rounded-lg"
               >
                 Register
               </button>
