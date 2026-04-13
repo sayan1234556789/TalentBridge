@@ -17,7 +17,10 @@ const app = express()
 connectDb()
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [
+  "https://freelance-io-beta.vercel.app",
+  "http://localhost:5173"
+],
     credentials: true
 }))
 
